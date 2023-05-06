@@ -1,2 +1,1 @@
-string="rfh"
 print("hello")
