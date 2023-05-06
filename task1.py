@@ -1,1 +1,1 @@
-print("hello", 'born')
+print("hello")
