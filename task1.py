@@ -1,16 +1,25 @@
-def change(roll=[str]):
-    roll = roll if roll else {}
-    roll[0], roll[-1] = roll[-1], roll[0]
-    print(roll)
+# Напишите функцию modification(lst), которая принимает список и меняет местами его первый и последний элемент.
+# В исходном списке минимум 2 элемента.
 
-uju = ['2', '4', '8']
-change(uju)
+def modification(lst2):
+    lst2[0], lst2[-1] = lst2[-1], lst2[0]
+    return lst2
 
-# 2  минимальный и максимальный элементы списка
-def get_list_info(lst):
-    min_elem = {min(lst)}
-    max_elem = {max(lst)}
-    sum_elem = {sum(lst)}
-    return min_elem, max_elem
+# Ниже НИЧЕГО НЕ НАДО ИЗМЕНЯТЬ
 
-get_list_info([1, 5, -7, 8, 4, 3,-8])
+
+data = [
+    [1, 2, 3],
+    [1, 2, 3, 4, 5],
+    ['н', 'л', 'о', 'с']
+]
+
+test_data = [
+    [3, 2, 1], [5, 2, 3, 4, 1], ['с', 'л', 'о', 'н']
+]
+
+
+for i, d in enumerate(data):
+    assert modification(d) == test_data[i], f'С набором {d} есть ошибка, не проходит проверку'
+    print(f'Тестовый набор {d} прошёл проверку')
+print('Всё ок')
