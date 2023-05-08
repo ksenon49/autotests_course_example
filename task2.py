@@ -29,4 +29,4 @@ for i, d in enumerate(data):
     assert get_list_info(d) == test_data[i], f'С набором {d} есть ошибка, не проходит проверку'
     print(f'Тестовый набор {d} прошёл проверку')
 print('Всё ок')
-# 123
+# 133
