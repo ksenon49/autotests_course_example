@@ -7,7 +7,7 @@ def get_list_info(*lst):
     min_elem = min(*lst)
     max_elem = max(*lst)
     sum_elem = sum(*lst)
-    average = round(sum(*lst)/len(*lst))
+    average = round((sum(*lst)/len(*lst)), 2)
     return min_elem, max_elem, sum_elem, average
 
 # Íèæå ÍÈ×ÅÃÎ ÍÅ ÍÀÄÎ ÈÇÌÅÍßÒÜ
