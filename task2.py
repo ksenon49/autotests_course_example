@@ -1,32 +1,36 @@
-# Дан список из 7 различных элементов. Используя функции (не использовать цикл), необходимо найти:
-# минимальный и максимальный элементы списка;
-# сумму и среднее арифметическое с округлением до 2 знаков после запятой;
+# Напишите функцию flatten_and_sort, которая принимает двумерый массив (список списков) array,
+# и возвращает "плоский" список со всеми числами в порядке возрастания result_list
+# Например (Ввод --> Вывод) :
+#
+# [[3, 2, 1], [4, 6, 5], [], [9, 7, 8]] -->  [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-from statistics import mean
-def get_list_info(lst):
-    min_elem = min(lst)
-    max_elem = max(lst)
-    sum_elem = sum(lst)
-    average = round((sum(lst)/len(lst)), 2)
-    return min_elem, max_elem, sum_elem, average
+
+def flatten_and_sort(array):
+    esult_list = []
+    for lst in array:
+        if type(lst) is list:
+          for elem in lst:
+            result_list.append(elem)
+        else:
+            result_list.append(lst)
+    return (sorted(result_list))
 
 # Ниже НИЧЕГО НЕ НАДО ИЗМЕНЯТЬ
 
 
 data = [
-    [1, 2, 3, 4, 5, 6, 7],
-    [-1, -2, -3, -4, -5, -6, -7],
-    [99, 56, 209, -308, -12, -18, 42],
-    [-1, -2, -3, 0, 1, 2, 3],
+    [[3, 2, 1], [4, 6, 5], [], [9, 7, 8]],
+    [[], []],
+    [[], [1]],
+    [[1, 3, 5], [100], [2, 4, 6]]
 ]
 
 test_data = [
-    (1, 7, 28, 4.0), (-7, -1, -28, -4.0), (-308, 209, 68, 9.71), (-3, 3, 0, 0.0)
+    [1, 2, 3, 4, 5, 6, 7, 8, 9], [], [1], [1, 2, 3, 4, 5, 6, 100]
 ]
 
 
 for i, d in enumerate(data):
-    assert get_list_info(d) == test_data[i], f'С набором {d} есть ошибка, не проходит проверку'
+    assert flatten_and_sort(d) == test_data[i], f'С набором {d} есть ошибка, не проходит проверку'
     print(f'Тестовый набор {d} прошёл проверку')
 print('Всё ок')
-# 123
