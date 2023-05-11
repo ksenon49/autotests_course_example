@@ -3,11 +3,11 @@
 # сумму и среднее арифметическое с округлением до 2 знаков после запятой;
 
 from statistics import mean
-def get_list_info(*lst):
-    min_elem = min(*lst)
-    max_elem = max(*lst)
-    sum_elem = sum(*lst)
-    average = round((sum(*lst)/len(*lst)), 2)
+def get_list_info(lst):
+    min_elem = min(lst)
+    max_elem = max(lst)
+    sum_elem = sum(lst)
+    average = round((sum(lst)/len(lst)), 2)
     return min_elem, max_elem, sum_elem, average
 
 # Ниже НИЧЕГО НЕ НАДО ИЗМЕНЯТЬ

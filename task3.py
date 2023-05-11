@@ -1,8 +1,8 @@
 # Дан список. Найдите сумму элементом с четными индексами
 
 
-def even_sum(*lst1):
-    sum_list = sum(*lst1[::2])
+def even_sum(lst1):
+    sum_list = sum(lst1[::2])
     return sum_list
 
 # Ниже НИЧЕГО НЕ НАДО ИЗМЕНЯТЬ
