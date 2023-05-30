@@ -1,21 +1,64 @@
-# Нелокальные изменения
-# Имеется функция global_function с локальной переменной msg = 1
-# Ваша задача дополнить логику функции global_function следующим образом:
-# global_function должна содержать в себе функцию local_function
-# local_function должна изменить значение переменной msg на значение 2
+# РќР°РїРёС€РёС‚Рµ РєР»Р°СЃСЃ Segment
+# Р”Р»СЏ РµРіРѕ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РЅСѓР¶РЅРѕ РґРІР° РєРѕСЂС‚РµР¶Р° СЃ РєРѕРѕСЂРґРёРЅР°С‚Р°РјРё С‚РѕС‡РµРє (x1, y1), (x2, y2)
+# Р РµР°Р»РёР·СѓР№С‚Рµ РјРµС‚РѕРґС‹ РєР»Р°СЃСЃР°:
+# 1. length, РєРѕС‚РѕСЂС‹Р№ РІРѕР·РІСЂР°С‰Р°РµС‚ РґР»РёРЅСѓ РЅР°С€РµРіРѕ РѕС‚СЂРµР·РєР°, СЃ РѕРєСЂСѓРіР»РµРЅРёРµРј РґРѕ 2 Р·РЅР°РєРѕРІ РїРѕСЃР»Рµ Р·Р°РїСЏС‚РѕР№
+# 2. x_axis_intersection, РєРѕС‚РѕСЂС‹Р№ РІРѕР·РІСЂР°С‰Р°РµС‚ True, РµСЃР»Рё РѕС‚СЂРµР·РѕРє РїРµСЂРµСЃРµРєР°РµС‚ РѕСЃСЊ Р°Р±С†РёСЃСЃ, РёРЅР°С‡Рµ False
+# 3. y_axis_intersection, РєРѕС‚РѕСЂС‹Р№ РІРѕР·РІСЂР°С‰Р°РµС‚ True, РµСЃР»Рё РѕС‚СЂРµР·РѕРє РїРµСЂРµСЃРµРєР°РµС‚ РѕСЃСЊ РѕСЂРґРёРЅР°С‚, РёРЅР°С‡Рµ False
+# РќР°РїСЂРёРјРµСЂ (Р’РІРѕРґ --> Р’С‹РІРѕРґ) :
+# Segment((2, 3), (4, 5)).length() --> 2.83
+# Segment((-2, -3), (4, 5)).x_axis_intersection() --> True
+# Segment((-2, -3), (-4, -5)).y_axis_intersection() --> False
+import math
 
 
-def global_function():
-    msg = 1
+class Segment():
 
-    def local_function():
-        nonlocal msg
-        msg += 1
+    def __init__(self, seg1, seg2):
+        self.seg1 = seg1
+        self.seg2 = seg2
 
-    local_function()
-    return msg
+    def length(self):
+        x1, y1 = self.seg1
+        x2, y2 = self.seg2
+        return round(((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5, 2)
 
-	
-assert global_function() == 2, 'Значение переменной msg должно быть равно 2'
-print('Все ок')
+    def x_axis_intersection(self):
+        x1, y1 = self.seg1
+        x2, y2 = self.seg2
+        if y1 * y2 < 0:
+            return True
+        else:
+            return False
 
+    def y_axis_intersection(self):
+        x1, y1 = self.seg1
+        x2, y2 = self.seg2
+        if x1 * x2 < 0:
+            return True
+        else:
+            return False
+
+
+# РќРёР¶Рµ РќРР§Р•Р“Рћ РќР• РќРђР”Рћ РР—РњР•РќРЇРўР¬
+
+
+data = [Segment((2, 3), (4, 5)).length,
+        Segment((1, 1), (1, 8)).length,
+        Segment((0, 0), (0, 1)).length,
+        Segment((15, 1), (18, 8)).length,
+        Segment((-2, -3), (4, 5)).x_axis_intersection,
+        Segment((-2, -3), (-4, -2)).x_axis_intersection,
+        Segment((0, -3), (4, 5)).x_axis_intersection,
+        Segment((2, 3), (4, 5)).y_axis_intersection,
+        Segment((-2, -3), (4, 5)).y_axis_intersection,
+        Segment((-2, 3), (4, 0)).y_axis_intersection
+        ]
+
+
+test_data = [2.83, 7.0, 1.0, 7.62, True, False, True, False, True, True]
+
+for i, d in enumerate(data):
+    assert_error = f'РќРµ РїСЂРѕС€Р»Р° РїСЂРѕРІРµСЂРєР° РґР»СЏ РјРµС‚РѕРґР° {d.__qualname__} СЌРєР·РµРјРїР»СЏСЂР° СЃ Р°С‚СЂРёР±СѓС‚Р°РјРё {d.__self__.__dict__}'
+    assert d() == test_data[i], assert_error
+    print(f'РќР°Р±РѕСЂ РґР»СЏ РјРµС‚РѕРґР° {d.__qualname__} СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР° СЃ Р°С‚СЂРёР±СѓС‚Р°РјРё {d.__self__.__dict__} РїСЂРѕС€С‘Р» РїСЂРѕРІРµСЂРєСѓ')
+print('Р’СЃС‘ РѕРє')

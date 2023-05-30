@@ -1,30 +1,64 @@
-# Глобальные перемены.
-# Имеется следующие переменные, определенные в глобальной области видимости модуля:
-# number = 1
-# string = 'Hello'
-# Напишите и вызовите функцию, которая будет изменять и возвращать эти переменные, на следующие значения:
-# number = 5
-# string = 'Hello, dear friend'
-# 
-
-number = 1
-string = 'Hello'
-
-
-def global_changes():
-    global number, string
-    number = 5
-    string = 'Hello, dear friend'
-    return number, string
+# Напишите класс Segment
+# Для его инициализации нужно два кортежа с координатами точек (x1, y1), (x2, y2)
+# Реализуйте методы класса:
+# 1. length, который возвращает длину нашего отрезка, с округлением до 2 знаков после запятой
+# 2. x_axis_intersection, который возвращает True, если отрезок пересекает ось абцисс, иначе False
+# 3. y_axis_intersection, который возвращает True, если отрезок пересекает ось ординат, иначе False
+# Например (Ввод --> Вывод) :
+# Segment((2, 3), (4, 5)).length() --> 2.83
+# Segment((-2, -3), (4, 5)).x_axis_intersection() --> True
+# Segment((-2, -3), (-4, -5)).y_axis_intersection() --> False
+import math
 
 
-global_changes()
+class Segment():
 
+    def __init__(self, seg1, seg2):
+        self.seg1 = seg1
+        self.seg2 = seg2
+
+    def length(self):
+        x1, y1 = self.seg1
+        x2, y2 = self.seg2
+        return round(((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5, 2)
+
+    def x_axis_intersection(self):
+        x1, y1 = self.seg1
+        x2, y2 = self.seg2
+        if y1 * y2 < 0:
+            return True
+        else:
+            return False
+
+    def y_axis_intersection(self):
+        x1, y1 = self.seg1
+        x2, y2 = self.seg2
+        if x1 * x2 < 0:
+            return True
+        else:
+            return False
 
 
 # Ниже НИЧЕГО НЕ НАДО ИЗМЕНЯТЬ
-assert number == 5, 'Переменная number должна иметь значение 5'
-assert string == 'Hello, dear friend', 'Переменная string должна иметь значение Hello, dear friend'
-assert global_changes() == (5, 'Hello, dear friend')
 
-print('Все ок')
+
+data = [Segment((2, 3), (4, 5)).length,
+        Segment((1, 1), (1, 8)).length,
+        Segment((0, 0), (0, 1)).length,
+        Segment((15, 1), (18, 8)).length,
+        Segment((-2, -3), (4, 5)).x_axis_intersection,
+        Segment((-2, -3), (-4, -2)).x_axis_intersection,
+        Segment((0, -3), (4, 5)).x_axis_intersection,
+        Segment((2, 3), (4, 5)).y_axis_intersection,
+        Segment((-2, -3), (4, 5)).y_axis_intersection,
+        Segment((-2, 3), (4, 0)).y_axis_intersection
+        ]
+
+
+test_data = [2.83, 7.0, 1.0, 7.62, True, False, True, False, True, True]
+
+for i, d in enumerate(data):
+    assert_error = f'Не прошла проверка для метода {d.__qualname__} экземпляра с атрибутами {d.__self__.__dict__}'
+    assert d() == test_data[i], assert_error
+    print(f'Набор для метода {d.__qualname__} экземпляра класса с атрибутами {d.__self__.__dict__} прошёл проверку')
+print('Всё ок')
