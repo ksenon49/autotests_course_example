@@ -13,19 +13,25 @@
 # Если в кортеже больше двух элементов,
 # то функция генерирует исключение Exception с текстом 'Много данных'
 
-
 import unittest  # Не удалять
 
-def treatment_sum(our_tuple):
-    if len(our_tuple) > 2:
-        raise Exception("Много данных")
+# Здесь пишем код
 
-    try:
-        return our_tuple[0] + our_tuple[1]
-    except IndexError:
-        return 'Недостаточно данных'
-    except TypeError:
-        return 'Нельзя сложить эти данные'
+
+def treatment_sum(our_tuple):
+    if len(our_tuple) == 2:
+        try:
+            return our_tuple[0] + our_tuple[1]
+        except TypeError:
+            return 'Нельзя сложить эти данные'
+    if len(our_tuple) < 2:
+        try:
+            our_tuple[0] + our_tuple[1]
+        except IndexError:
+            return 'Недостаточно данных'
+
+    if len(our_tuple) > 2:
+        raise OverflowError('Много данных')
 
 
 # Ниже НИЧЕГО НЕ НАДО ИЗМЕНЯТЬ

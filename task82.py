@@ -16,6 +16,8 @@
 import unittest  # Не удалять
 
 
+# Здесь пишем код
+
 class Trigon:
     def __init__(self, *args):
 
@@ -31,8 +33,6 @@ class Trigon:
         a, b, c = sorted(args)
         if a + b <= c:
             raise Exception('Не треугольник')
-
-
 
 # Ниже НИЧЕГО НЕ НАДО ИЗМЕНЯТЬ
 

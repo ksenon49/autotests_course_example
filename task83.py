@@ -6,18 +6,23 @@
 # то функция возвращает текст исключения задом наперед (Нужно обратится к атрибуту экзепляра класса Exception)
 # Если исключения не произошло, то функция возвращает сумму всех координат
 
+# try:
+#     for i in range(len(p1)):
+#         summa += p1[i] + p2[i]
+#         print(summa)
+# except Exception as e:
+#     print(str(e)[::-1])
 
-def segment(seg1, seg2):
+# Здесь пишем код
+
+def segment(point1, point2):
     try:
-        x1, y1 = seg1
-        x2, y2 = seg2
-        summ = x1 + x2 + y1 + y2
-        return summ
+        sum_points = 0
+        for item in range(len(point1)):
+            sum_points += point1[item] + point2[item]
     except Exception as e:
-        return e.args[0][::-1]
-
-
-
+        return str(e)[::-1]
+    return sum_points
 # Ниже НИЧЕГО НЕ НАДО ИЗМЕНЯТЬ
 
 
