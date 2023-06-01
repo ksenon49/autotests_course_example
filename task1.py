@@ -1,64 +1,55 @@
-# Напишите класс Segment
-# Для его инициализации нужно два кортежа с координатами точек (x1, y1), (x2, y2)
-# Реализуйте методы класса:
-# 1. length, который возвращает длину нашего отрезка, с округлением до 2 знаков после запятой
-# 2. x_axis_intersection, который возвращает True, если отрезок пересекает ось абцисс, иначе False
-# 3. y_axis_intersection, который возвращает True, если отрезок пересекает ось ординат, иначе False
-# Например (Ввод --> Вывод) :
-# Segment((2, 3), (4, 5)).length() --> 2.83
-# Segment((-2, -3), (4, 5)).x_axis_intersection() --> True
-# Segment((-2, -3), (-4, -5)).y_axis_intersection() --> False
-import math
+# Напишите функцию treatment_sum, использовав конструкцию try/except
+# На вход поступает кортеж our_tuple
+
+# Если в кортеже 2 элемента и их можно сложить,
+# то функция возвращает получившийся результат
+
+# Если в кортеже 2 элемента и их нельзя сложить,
+# то функция обрабатывает исключение и возвращает строку 'Нельзя сложить эти данные'
+
+# Если в кортеже меньше двух элементов,
+# то функция обрабатывает исключение и возвращает строку 'Недостаточно данных'
+
+# Если в кортеже больше двух элементов,
+# то функция генерирует исключение Exception с текстом 'Много данных'
 
 
-class Segment():
+import unittest  # Не удалять
 
-    def __init__(self, seg1, seg2):
-        self.seg1 = seg1
-        self.seg2 = seg2
+def treatment_sum(our_tuple):
+    if len(our_tuple) > 2:
+        raise Exception("Много данных")
 
-    def length(self):
-        x1, y1 = self.seg1
-        x2, y2 = self.seg2
-        return round(((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5, 2)
-
-    def x_axis_intersection(self):
-        x1, y1 = self.seg1
-        x2, y2 = self.seg2
-        if y1 * y2 < 0:
-            return True
-        else:
-            return False
-
-    def y_axis_intersection(self):
-        x1, y1 = self.seg1
-        x2, y2 = self.seg2
-        if x1 * x2 < 0:
-            return True
-        else:
-            return False
+    try:
+        return our_tuple[0] + our_tuple[1]
+    except IndexError:
+        return 'Недостаточно данных'
+    except TypeError:
+        return 'Нельзя сложить эти данные'
 
 
 # Ниже НИЧЕГО НЕ НАДО ИЗМЕНЯТЬ
 
 
-data = [Segment((2, 3), (4, 5)).length,
-        Segment((1, 1), (1, 8)).length,
-        Segment((0, 0), (0, 1)).length,
-        Segment((15, 1), (18, 8)).length,
-        Segment((-2, -3), (4, 5)).x_axis_intersection,
-        Segment((-2, -3), (-4, -2)).x_axis_intersection,
-        Segment((0, -3), (4, 5)).x_axis_intersection,
-        Segment((2, 3), (4, 5)).y_axis_intersection,
-        Segment((-2, -3), (4, 5)).y_axis_intersection,
-        Segment((-2, 3), (4, 0)).y_axis_intersection
-        ]
+class MyTestCase(unittest.TestCase):
+
+    def test(self):
+        data = [(3, 5), (3, '7'), (3,), (), ('23', '32')]
+
+        test_data = [8, 'Нельзя сложить эти данные', 'Недостаточно данных', 'Недостаточно данных', '2332']
+
+        for i, d in enumerate(data):
+            assert treatment_sum(d) == test_data[i], f'С набором {d} есть ошибка, не проходит проверку'
+            print(f'Тестовый набор {d} прошёл проверку')
+
+        with self.assertRaises(Exception):
+            treatment_sum((3, 4, 5))
+        try:
+            treatment_sum((3, 4, 5))
+        except Exception as e:
+            assert e.args[0] == 'Много данных', 'Исключение имеет неправильный текст'
+        print('Всё ок')
 
 
-test_data = [2.83, 7.0, 1.0, 7.62, True, False, True, False, True, True]
-
-for i, d in enumerate(data):
-    assert_error = f'Не прошла проверка для метода {d.__qualname__} экземпляра с атрибутами {d.__self__.__dict__}'
-    assert d() == test_data[i], assert_error
-    print(f'Набор для метода {d.__qualname__} экземпляра класса с атрибутами {d.__self__.__dict__} прошёл проверку')
-print('Всё ок')
+if __name__ == '__main__':
+    unittest.main()
