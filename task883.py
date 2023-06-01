@@ -7,8 +7,18 @@
 # Если исключения не произошло, то функция возвращает сумму всех координат
 
 
-# Здесь пишем код
 
+def segment(seg1, seg2):
+    try:
+        x1, y1 = seg1
+        x2, y2 = seg2
+        summ = x1 + x2 + y1 + y2
+        return summ
+    except Exception as e:
+        return e.args[0][::-1]
+
+		
+		
 # Ниже НИЧЕГО НЕ НАДО ИЗМЕНЯТЬ
 
 
