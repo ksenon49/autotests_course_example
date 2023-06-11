@@ -34,7 +34,8 @@
 import datetime
 import functools
 
-def func_log(file_log=r'C:\Users\ka.chernyh\PycharmProjects\pythonProject2\9\test_file\log.txt'):
+
+def func_log(file_log=r'test_file\log.txt'):
     def decorator_func_log(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
