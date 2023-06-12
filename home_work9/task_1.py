@@ -20,3 +20,4 @@ with open("test_file/task1_answer.txt", 'r', encoding='utf-8') as file1:
         ethalon = file2.readlines()
         assert answer == ethalon, "Файл ответа не совпадает с эталонном"
 print('Всё ок')
+
