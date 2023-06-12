@@ -32,19 +32,31 @@
 
 
 import datetime
-import functools
+import time
 
 
-def func_log(file_log=r'test_file\log.txt'):
+def func_log(file_log=r'func2.txt'):
     def decorator_func_log(func):
-        @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            timestamp = datetime.datetime.now().strftime('%d.%m %H:%M:%S')
-            log = f'{func.__name__} вызвана {timestamp}\n'
-
-            with open(file_log, 'a') as file:
-                file.write(log)
-
+            with open(file_log, 'a', encoding='utf-8') as log_file:
+                result = func(*args, **kwargs)
+                data_time = datetime.datetime.now().strftime('%d.%m %H:%M:%S')
+                log_file.write('{} вызвана {}\n'.format(func.__name__, data_time))
+            return result
         return wrapper
-    return decorator_func_log()
+    return decorator_func_log
 
+
+@func_log()
+def func1():
+    time.sleep(2)
+
+
+@func_log(file_log='func2.txt')
+def func2():
+    time.sleep(5)
+
+
+func1()
+func2()
+func1()
