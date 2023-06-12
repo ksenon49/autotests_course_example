@@ -20,4 +20,3 @@ print(three_most_expensive_purchases)
 
 
 assert three_most_expensive_purchases == 202346
-
