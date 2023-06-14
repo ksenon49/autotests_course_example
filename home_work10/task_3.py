@@ -4,21 +4,24 @@
 import pytest
 
 
+
 def all_division(*arg1):
 
     division = arg1[0]
     for i in arg1[1:]:
         division /= i
     return division
-	
-
-@pytest.mark.parametrize('a, b, c result', [
-    pytest.param(8, 2, 4, marks=pytest.mark.smoke),
-    pytest.param(2.3, 1, 2.3, marks=pytest.mark.skip('not work')),
-    (3, 0.5, 6)])
-def test_division(a, b, result):
-    assert all_division(a, b) == result	
 
 
-
+@pytest.mark.parametrize('test_input, result', [
+    pytest.param((8, 2), 4, marks=pytest.mark.smoke('smoke')),
+    pytest.param((2.3, 1), 2.3, marks=pytest.mark.skip('not work')),
+    ((3, 0.5), 6),
+    ((8, 0), ZeroDivisionError),
+    ])
+def test_division(*test_input, result):
+    try:
+        assert all_division(*test_input) == result
+    except ZeroDivisionError as error:
+        assert error
 

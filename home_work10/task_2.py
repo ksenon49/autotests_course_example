@@ -16,7 +16,7 @@ def all_division(*arg1):
         division /= i
     return division
 
-	
+
 @pytest.mark.smoke
 def test_smoke():
     assert all_division(8, 2) == 4
@@ -29,12 +29,13 @@ def test_zero():
 
 
 def test_float1():
-    assert all_division(2.3, 1)
+    assert all_division(2.3, 1) == 2.3
 
 
 def test_float2():
-    assert all_division(3, 0.5)
+    assert all_division(3, 0.5) == 6
 
 
-def test_three_arg():
-    assert all_division(2, 5, 1)
+@pytest.mark.acceptance
+def test_negative():
+    assert all_division(-20, 5) == -4
