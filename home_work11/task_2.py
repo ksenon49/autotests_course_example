@@ -35,34 +35,38 @@ try:
     btn_pls = browser.find_element(By.XPATH, '//*[@id="wasaby-content"]/div/div/div[2]/div[3]/div/div/div[5]/div[2]/div[1]/span/span')
     assert btn_pls.is_displayed(), 'не нашли кнопку сообщения'
     btn_pls.click()
-    sleep(2)
+    sleep(15)
 
-    fio_search = browser.find_element(By.CSS_SELECTOR, '[class="controls-Render__wrapper')
+    fio_search = browser.find_element(By.CSS_SELECTOR, '.controls-InputBase__nativeField_hideCustomPlaceholder')
     fio_search.send_keys(empioyee, Keys.ENTER)
-    sleep(2)
+    sleep(5)
 
+    mes_autor = browser.find_element(By.CSS_SELECTOR, '.person-Info__withActivity')
+    mes_autor.click()
+    sleep(5)
     mes_text = browser.find_element(By.CSS_SELECTOR, '[data-qa="textEditor_slate_Field"]')
+    mes_text.click()
     mes_text.send_keys(message)
-    sleep(2)
+    browser.maximize_window()
+    sleep(6)
 
-    mes_btn = browser.find_element(By.CSS_SELECTOR, '.icon-BtArrow')
+    mes_btn = browser.find_element(By.CSS_SELECTOR, '.controls-icon_style-contrast')
     mes_btn.click()
-    sleep(2)
-#    close_mes = browser.find_element(By.CSS_SELECTOR, '.controls-icon icon-Close')
-#    close_mes.click()
+    sleep(3)
 
     check_mes = browser.find_element(By.CSS_SELECTOR, '.msg-dialogs-item p')
-    assert check_mes[0].text == message, 'нет сообщ'
+    sleep(2)
+    assert check_mes.text == message, 'нет сообщ'
 
     action_chain = ActionChains(browser)
-    action_chain.move_to_element(check_mes[0])
+    action_chain.move_to_element(check_mes)
     action_chain.perform()
+    sleep(2)
     delete_mes = browser.find_element(By.CSS_SELECTOR, '[data-qa="controls-itemActions__action deleteToArchive"]')
     delete_mes.click()
     sleep(3)
-    assert browser.find_element(By.CSS_SELECTOR, '.msg-dialogs-item p')[0] != check_mes[0], 'сообщ не удалено'
-    sleep(3)
-
+    check_mes = browser.find_element(By.CSS_SELECTOR, '.msg-dialogs-item p')
+    assert check_mes != message, 'сообщ не удалено'
 
 finally:
     browser.quit()
