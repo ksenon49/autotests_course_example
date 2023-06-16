@@ -2,7 +2,7 @@
 # Промаркируйте 1 параметр из выборки как smokе, а 1 набор данных скипните
 
 import pytest
-
+import test_task102
 
 
 def all_division(*arg1):
@@ -13,15 +13,11 @@ def all_division(*arg1):
     return division
 
 
-@pytest.mark.parametrize('test_input, result', [
-    pytest.param((8, 2), 4, marks=pytest.mark.smoke('smoke')),
-    pytest.param((2.3, 1), 2.3, marks=pytest.mark.skip('not work')),
-    ((3, 0.5), 6),
-    ((8, 0), ZeroDivisionError),
-    ])
-def test_division(*test_input, result):
-    try:
-        assert all_division(*test_input) == result
-    except ZeroDivisionError as error:
-        assert error
-
+@pytest.mark.parametrize('a, b, result', [
+    pytest.param(8, 2, 4, marks=pytest.mark.smoke('smoke')),
+    pytest.param(2.3, 1, 2.3, marks=pytest.mark.skip('not work')),
+    (3, 0.5, 6),
+    (8, 0, ZeroDivisionError)],
+    ids=['smoke', 'not work', 'positive_with_float', 'zero division'])
+def test_smoke(a, b, result):
+    assert all_division(a, b) == result
