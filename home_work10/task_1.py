@@ -13,11 +13,9 @@
 # aym jpvezfqexlv
 # iuy qnikkgxvxfxtxv
 
-import random
-
-
 from random import choice, randint
 import string
+
 
 def generate_random_string(length):
     letters = string.ascii_lowercase
@@ -31,8 +29,6 @@ def generate_random_name():
         str2 = generate_random_string(randint(1, 15))
         yield f'{str1} {str2}'
 
-#    l1, l2 = (choice(letter) for _ in randint(1, 15))
-#    print(l1, l2, sep=' ')
 
 gen = generate_random_name()
 print(next(gen))

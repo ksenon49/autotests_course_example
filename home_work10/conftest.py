@@ -1,20 +1,31 @@
 import pytest
-import time
 import datetime
 
 
-@pytest.fixture(autouse=True)
-def start_time():
-    start = datetime.datetime.now()
-    print(f'\t Тест запустился в {start.strftime("%d.%m %H:%M:%S")}')
-    yield
-    end = datetime.datetime.now()
-    print(f'\n\t Тест завершился в {end.strftime("%d.%m %H:%M:%S")}')
+@pytest.fixture(scope="session", autouse=True)
+def test_session_start_end(request):
+    start_time = datetime.datetime.now()
+    print(f"\nTest session started at {start_time}")
+
+    def session_end():
+        end_time = datetime.datetime.now()
+        print(f"\nTest session ended at {end_time}")
+        duration = end_time - start_time
+        print(f"Test session duration: {duration}")
+
+    request.addfinalizer(session_end)
 
 
-@pytest.fixture(autouse=True)
-def run_time():
-    start = time.time()
-    yield
-    end = time.time()
-    print(f'\t Время выполнения теста: {end - start}')
+@pytest.fixture(scope="function")
+def test_time(request):
+    start_time = datetime.datetime.now()
+    print(f"\nTest started at {start_time}")
+
+    def test_end():
+        end_time = datetime.datetime.now()
+        print(f"\nTest ended at {end_time}")
+        duration = end_time - start_time
+        print(f"Test duration: {duration}")
+
+    request.addfinalizer(test_end)
+	
